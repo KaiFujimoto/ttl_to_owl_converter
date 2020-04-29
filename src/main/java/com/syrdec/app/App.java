@@ -16,28 +16,35 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-        for(int i = 0; i<args.length; i++) {
-
-            System.out.println("args[" + i + "]: " + args[i]);
-        }
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
         try {
             OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File(args[0])); // will take in the first argument from the command line
             System.out.println("Number of axioms: " + ontology.getAxiomCount());
-            File outputFile = new File(args[1]);
             OWLDocumentFormat inputFormat = manager.getOntologyFormat(ontology);
+            
+            // Export to OWL/XML
+            File outputFile = new File(args[1] + ".owl");
             OWLDocumentFormat outputFormat = new OWLXMLDocumentFormat();
             if (inputFormat.isPrefixOWLDocumentFormat() && outputFormat.isPrefixOWLDocumentFormat()) {
                 outputFormat.asPrefixOWLDocumentFormat().copyPrefixesFrom(inputFormat.asPrefixOWLDocumentFormat());
             }
             manager.saveOntology(ontology, outputFormat, IRI.create(outputFile.toURI()));
+
+            // Export to RDF/XML
+            File outputFile2 = new File(args[1] + ".rdf");
+            RDFDocumentFormat outputFormat2 = new RDFXMLDocumentFormat();
+            if (inputFormat.isPrefixOWLDocumentFormat() && outputFormat2.isPrefixOWLDocumentFormat()) {
+                outputFormat2.asPrefixOWLDocumentFormat().copyPrefixesFrom(inputFormat.asPrefixOWLDocumentFormat());
+            }
+            manager.saveOntology(ontology, outputFormat2, IRI.create(outputFile2.toURI()));
+
         } catch (Exception e) {
             System.out.println("Something went wrong.");
         } finally {
             System.out.println("The 'try catch' is finished.");
         }
 
+        System.exit(0);
     }
 }
