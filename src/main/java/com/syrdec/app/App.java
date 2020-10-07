@@ -16,6 +16,13 @@ public class App
 {
     public static void main( String[] args ) 
     {
+    	
+    	if (args.length != 2)
+    	{
+    		System.out.println("Parameters Error: \nUsage: ttl_to_owl_converter input.omn outputbase\noutput should not have a extension, owl and rdf will be added/created, outputbase.owl, outputbase.rdf");
+    		System.exit(-1);
+    	}
+    	
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         String owlFileName = args[1]+".owl";
         String rdfFileName = args[1]+".rdf";

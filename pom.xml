@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>my-app</name>
-  <!-- FIXME change it to the project's website -->
+
   <url>http://www.example.com</url>
 
   <properties>
@@ -31,6 +31,13 @@
 			<artifactId>owlapi-apibinding</artifactId>
 			<version>${owlapi.version}</version>
 		</dependency>
+		
+		<dependency>
+  			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+  			<version>1.7.21</version>
+		</dependency>
+		
 		<!-- <dependency>
 			<groupId>${owlapi.groupId}</groupId>
 			<artifactId>owlapi-impl</artifactId>
